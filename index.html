@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FITTED | Virtual Fashion Studio</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #101115;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  background: #15161b;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.subtitle {
+  color: #999;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: calc(100vh - 70px);
+}
+
+.showroom {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at center,
+      #40434d 0%,
+      #202127 55%,
+      #101115 100%
+    );
+}
+
+#viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  touch-action: pan-y;
+}
+
+.showroom-title {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  pointer-events: none;
+}
+
+.showroom-title h2 {
+  font-size: 15px;
+  letter-spacing: 3px;
+}
+
+.showroom-title p {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.rotation-controls {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 12px 15px;
+  border: 1px solid #555;
+  background: #282a32;
+  color: white;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444650;
+}
+
+button.active {
+  background: white;
+  color: black;
+}
+
+.sidebar {
+  background: #191a20;
+  padding: 25px;
+  border-left: 1px solid #333;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.description {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.category {
+  margin-top: 30px;
+}
+
+.category h3 {
+  font-size: 12px;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.skin-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid #777;
+  padding: 0;
+}
+
+.skin-button.active {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+.summary {
+  margin-top: 35px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.spotify {
+  position: absolute;
+  bottom: 90px;
+  left: 20px;
+  background: #18191fe8;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  font-size: 12px;
+}
+
+.spotify a {
+  color: #1ed760;
+}
+
+footer {
+  padding: 15px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+}
+
+@media(max-width: 750px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .showroom {
+    min-height: 550px;
+  }
+
+  #viewer {
+    min-height: 550px;
+  }
+
+  .sidebar {
+    border-left: none;
+    border-top: 1px solid #333;
+  }
+
+  .rotation-controls {
+    bottom: 20px;
+  }
+
+  .spotify {
+    bottom: 85px;
+  }
+
+  .subtitle {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">FITTED</div>
+  <div class="subtitle">VIRTUAL FASHION STUDIO</div>
+</header>
+
+<div class="layout">
+
+  <section class="showroom">
+
+    <div id="viewer"></div>
+
+    <div class="showroom-title">
+      <h2>THE FITTING ROOM</h2>
+      <p>Customize your virtual look</p>
+    </div>
+
+    <div class="spotify">
+      ♫ YOUR SOUNDTRACK
+      <p>Spotify integration coming soon</p>
+      <a href="https://open.spotify.com"
+         target="_blank"
+         rel="noopener noreferrer">
+        Open Spotify ↗
+      </a>
+    </div>
+
+    <div class="rotation-controls">
+      <button id="rotateLeft">↶</button>
+      <button id="resetView">Reset</button>
+      <button id="rotateRight">↷</button>
+    </div>
+
+  </section>
+
+  <aside class="sidebar">
+
+    <h2>Customize Your Fit</h2>
+
+    <p class="description">
+      Select your skin tone, clothing,
+      and shoes to create your look.
+    </p>
+
+    <div class="category">
+      <h3>Skin Tone</h3>
+      <div class="options" id="skinOptions"></div>
+    </div>
+
+    <div class="category">
+      <h3>Tops</h3>
+      <div class="options" id="topOptions"></div>
+    </div>
+
+    <div class="category">
+      <h3>Bottoms</h3>
+      <div class="options" id="bottomOptions"></div>
+    </div>
+
+    <div class="category">
+      <h3>Shoes</h3>
+      <div class="options" id="shoeOptions"></div>
+    </div>
+
+    <div class="summary">
+      <h3>YOUR LOOK</h3>
+      <p id="outfitDescription"></p>
+      <div class="price" id="totalPrice">$0</div>
+      <p class="description">
+        Demo pricing. Products are placeholders.
+      </p>
+      <button id="saveLook">Save Look</button>
+      <p id="saveMessage"></p>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer>
+  FITTED Prototype — Virtual Fashion Experience
+</footer>
+
+<script type="module">
+
+import * as THREE from
+"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js";
+
+const container = document.getElementById("viewer");
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+  35,
+  1,
+  0.1,
+  100
+);
+
+camera.position.set(0, 2.35, 7.8);
+camera.lookAt(0, 1.6, 0);
+
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  alpha: true
+});
+
+renderer.setPixelRatio(
+  Math.min(window.devicePixelRatio, 2)
+);
+
+renderer.shadowMap.enabled = true;
+
+container.appendChild(renderer.domElement);
+
+// LIGHTING
+
+const ambient = new THREE.HemisphereLight(
+  0xdde7ff,
+  0x29232c,
+  2.2
+);
+
+scene.add(ambient);
+
+const spotlight = new THREE.SpotLight(
+  0xffffff,
+  65,
+  12,
+  Math.PI / 5,
+  0.5
+);
+
+spotlight.position.set(3, 7, 5);
+spotlight.castShadow = true;
+
+scene.add(spotlight);
+
+const fillLight = new THREE.DirectionalLight(
+  0x93a7ff,
+  2
+);
+
+fillLight.position.set(-4, 3, -2);
+
+scene.add(fillLight);
+
+// PODIUM
+
+const podiumGeometry = new THREE.CylinderGeometry(
+  1.35,
+  1.45,
+  0.25,
+  80
+);
+
+const podiumMaterial = new THREE.MeshStandardMaterial({
+  color: 0x343640,
+  metalness: 0.55,
+  roughness: 0.32
+});
+
+const podium = new THREE.Mesh(
+  podiumGeometry,
+  podiumMaterial
+);
+
+podium.position.y = -0.13;
+podium.receiveShadow = true;
+
+scene.add(podium);
+
+// CHARACTER GROUP
+
+const avatar = new THREE.Group();
+
+scene.add(avatar);
+
+function material(color) {
+  return new THREE.MeshStandardMaterial({
+    color: color,
+    roughness: 0.78
+  });
+}
+
+function createMesh(
+  geometry,
+  meshMaterial,
+  x,
+  y,
+  z
+) {
+  const object = new THREE.Mesh(
+    geometry,
+    meshMaterial
+  );
+
+  object.position.set(x, y, z);
+  object.castShadow = true;
+
+  avatar.add(object);
+
+  return object;
+}
+
+function box(w, h, d, mat, x, y, z) {
+  return createMesh(
+    new THREE.BoxGeometry(w, h, d),
+    mat,
+    x,
+    y,
+    z
+  );
+}
+
+function capsule(r, length, mat, x, y, z) {
+  return createMesh(
+    new THREE.CapsuleGeometry(
+      r,
+      length,
+      8,
+      16
+    ),
+    mat,
+    x,
+    y,
+    z
+  );
+}
+
+// CUSTOMIZATION DATA
+
+const skinTones = [
+  "#f1c7a1",
+  "#c58b63",
+  "#925c40",
+  "#613d2f",
+  "#39251e"
+];
+
+const tops = [
+  { name: "Black Tee", color: "#202126", price: 28 },
+  { name: "Cream Hoodie", color: "#e4dccc", price: 55 },
+  { name: "Blue Jacket", color: "#476585", price: 78 }
+];
+
+const bottoms = [
+  { name: "Black Pants", color: "#25262a", price: 48 },
+  { name: "Blue Denim", color: "#3c5e82", price: 65 },
+  { name: "Sand Chinos", color: "#b9a284", price: 52 }
+];
+
+const shoes = [
+  { name: "White Sneakers", color: "#e8e8e6", price: 85 },
+  { name: "Black Sneakers", color: "#252529", price: 90 },
+  { name: "Tan Boots", color: "#997754", price: 115 }
+];
+
+let selection = {
+  skin: 2,
+  top: 0,
+  bottom: 1,
+  shoe: 0
+};
+
+// BUILD CHARACTER
+
+function buildAvatar() {
+
+  avatar.clear();
+
+  const skin = material(
+    skinTones[selection.skin]
+  );
+
+  const shirt = material(
+    tops[selection.top].color
+  );
+
+  const pants = material(
+    bottoms[selection.bottom].color
+  );
+
+  const footwear = material(
+    shoes[selection.shoe].color
+  );
+
+  const hair = material("#171519");
+
+  // HEAD
+
+  capsule(
+    0.17,
+    0.36,
+    skin,
+    0,
+    2.86,
+    0
+  );
+
+  createMesh(
+    new THREE.SphereGeometry(0.23, 24, 16),
+    hair,
+    0,
+    3.12,
+    -0.025
+  );
+
+  // NECK
+
+  capsule(
+    0.12,
+    0.12,
+    skin,
+    0,
+    2.53,
+    0
+  );
+
+  // TORSO
+
+  box(
+    0.77,
+    0.93,
+    0.37,
+    shirt,
+    0,
+    2.02,
+    0
+  );
+
+  // HOODIE
+
+  if (selection.top === 1) {
+
+    capsule(
+      0.32,
+      0.16,
+      shirt,
+      0,
+      2.45,
+      -0.07
+    );
+
+    box(
+      0.3,
+      0.16,
+      0.39,
+      shirt,
+      0,
+      1.69,
+      0.025
+    );
+
+  }
+
+  // JACKET ZIPPER
+
+  if (selection.top === 2) {
+
+    box(
+      0.04,
+      0.82,
+      0.39,
+      material("#c4c7cd"),
+      0,
+      2.02,
+      0.02
+    );
+
+  }
+
+  // ARMS AND LEGS
+
+  for (const side of [-1, 1]) {
+
+    // ARM
+
+    capsule(
+      0.115,
+      0.66,
+      shirt,
+      side * 0.52,
+      2.03,
+      0
+    );
+
+    // HAND
+
+    capsule(
+      0.085,
+      0.14,
+      skin,
+      side * 0.52,
+      1.55,
+      0
+    );
+
+    // LEG
+
+    capsule(
+      0.16,
+      0.89,
+      pants,
+      side * 0.22,
+      0.97,
+      0
+    );
+
+    // SHOE
+
+    box(
+      0.36,
+      0.22,
+      0.64,
+      footwear,
+      side * 0.22,
+      0.20,
+      0.16
+    );
+
+  }
+
+  // WAIST
+
+  box(
+    0.8,
+    0.2,
+    0.4,
+    pants,
+    0,
+    1.47,
+    0
+  );
+
+  updatePrice();
+}
+
+// UI BUTTON GENERATOR
+
+function createOptions(
+  elementId,
+  items,
+  key,
+  isSkin = false
+) {
+
+  const element = document.getElementById(
+    elementId
+  );
+
+  items.forEach((item, index) => {
+
+    const button = document.createElement(
+      "button"
+    );
+
+    if (isSkin) {
+
+      button.className = "skin-button";
+
+      button.style.background = item;
+
+      button.setAttribute(
+        "aria-label",
+        "Skin tone " + (index + 1)
+      );
+
+    } else {
+
+      button.textContent = item.name;
+
+    }
+
+    if (selection[key] === index) {
+      button.classList.add("active");
+    }
+
+    button.addEventListener("click", () => {
+
+      selection[key] = index;
+
+      element.querySelectorAll("button")
+        .forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+      button.classList.add("active");
+
+      buildAvatar();
+
+    });
+
+    element.appendChild(button);
+
+  });
+
+}
+
+// CREATE CONTROLS
+
+createOptions(
+  "skinOptions",
+  skinTones,
+  "skin",
+  true
+);
+
+createOptions(
+  "topOptions",
+  tops,
+  "top"
+);
+
+createOptions(
+  "bottomOptions",
+  bottoms,
+  "bottom"
+);
+
+createOptions(
+  "shoeOptions",
+  shoes,
+  "shoe"
+);
+
+// PRICE CALCULATOR
+
+function updatePrice() {
+
+  const top = tops[selection.top];
+  const bottom = bottoms[selection.bottom];
+  const shoe = shoes[selection.shoe];
+
+  const total =
+    top.price +
+    bottom.price +
+    shoe.price;
+
+  document.getElementById(
+    "totalPrice"
+  ).textContent = "$" + total;
+
+  document.getElementById(
+    "outfitDescription"
+  ).textContent =
+    top.name + " · " +
+    bottom.name + " · " +
+    shoe.name;
+
+}
+
+// ROTATION
+
+let rotation = 0;
+let dragging = false;
+let previousX = 0;
+
+renderer.domElement.addEventListener(
+  "pointerdown",
+  event => {
+
+    dragging = true;
+    previousX = event.clientX;
+
+    renderer.domElement.setPointerCapture(
+      event.pointerId
+    );
+
+  }
+);
+
+renderer.domElement.addEventListener(
+  "pointermove",
+  event => {
+
+    if (!dragging) return;
+
+    const delta = event.clientX - previousX;
+
+    rotation += delta * 0.01;
+
+    avatar.rotation.y = rotation;
+
+    previousX = event.clientX;
+
+  }
+);
+
+renderer.domElement.addEventListener(
+  "pointerup",
+  () => {
+    dragging = false;
+  }
+);
+
+renderer.domElement.addEventListener(
+  "pointercancel",
+  () => {
+    dragging = false;
+  }
+);
+
+// ROTATION BUTTONS
+
+document.getElementById(
+  "rotateLeft"
+).onclick = () => {
+
+  rotation -= Math.PI / 4;
+
+  avatar.rotation.y = rotation;
+
+};
+
+document.getElementById(
+  "rotateRight"
+).onclick = () => {
+
+  rotation += Math.PI / 4;
+
+  avatar.rotation.y = rotation;
+
+};
+
+document.getElementById(
+  "resetView"
+).onclick = () => {
+
+  rotation = 0;
+
+  avatar.rotation.y = 0;
+
+  camera.position.set(0, 2.35, 7.8);
+
+};
+
+// ZOOM
+
+renderer.domElement.addEventListener(
+  "wheel",
+  event => {
+
+    event.preventDefault();
+
+    camera.position.z = THREE.MathUtils.clamp(
+      camera.position.z + event.deltaY * 0.006,
+      5,
+      11
+    );
+
+  },
+  { passive: false }
+);
+
+// SAVE OUTFIT
+
+document.getElementById(
+  "saveLook"
+).onclick = () => {
+
+  try {
+
+    localStorage.setItem(
+      "fitted-look",
+      JSON.stringify(selection)
+    );
+
+    document.getElementById(
+      "saveMessage"
+    ).textContent = "Look saved!";
+
+  } catch (error) {
+
+    document.getElementById(
+      "saveMessage"
+    ).textContent = "Unable to save this look.";
+
+  }
+
+};
+
+// RESTORE SAVED OUTFIT
+
+try {
+
+  const saved = JSON.parse(
+    localStorage.getItem("fitted-look")
+  );
+
+  if (saved) {
+
+    const valid =
+      Number.isInteger(saved.skin) &&
+      saved.skin >= 0 &&
+      saved.skin < skinTones.length &&
+      Number.isInteger(saved.top) &&
+      saved.top >= 0 &&
+      saved.top < tops.length &&
+      Number.isInteger(saved.bottom) &&
+      saved.bottom >= 0 &&
+      saved.bottom < bottoms.length &&
+      Number.isInteger(saved.shoe) &&
+      saved.shoe >= 0 &&
+      saved.shoe < shoes.length;
+
+    if (valid) {
+
+      selection = saved;
+
+      const groups = [
+        ["skinOptions", "skin"],
+        ["topOptions", "top"],
+        ["bottomOptions", "bottom"],
+        ["shoeOptions", "shoe"]
+      ];
+
+      groups.forEach(([id, key]) => {
+
+        const buttons = document
+          .getElementById(id)
+          .querySelectorAll("button");
+
+        buttons.forEach(button => {
+          button.classList.remove("active");
+        });
+
+        buttons[selection[key]].classList.add(
+          "active"
+        );
+
+      });
+
+    }
+
+  }
+
+} catch (error) {
+  console.warn("Saved outfit unavailable.");
+}
+
+// RESPONSIVE CANVAS
+
+function resizeViewer() {
+
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  camera.aspect = width / height;
+
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width, height);
+
+}
+
+new ResizeObserver(
+  resizeViewer
+).observe(container);
+
+// INITIALIZE
+
+buildAvatar();
+resizeViewer();
+
+// RENDER LOOP
+
+renderer.setAnimationLoop(() => {
+
+  renderer.render(scene, camera);
+
+});
+
+</script>
+
+</body>
+</html>
