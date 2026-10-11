@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>FITTED | Virtual Fashion Studio</title>
+<title>FITTED — Fashion Studio</title>
 
 <style>
 * {
@@ -13,211 +13,147 @@
 
 body {
   margin: 0;
-  background: #101115;
-  color: white;
-  font-family: Arial, sans-serif;
+  background: #101116;
+  color: #f4f4f6;
+  font: 15px system-ui, sans-serif;
 }
 
 header {
-  height: 70px;
+  padding: 18px 24px;
+  border-bottom: 1px solid #34343d;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 25px;
-  background: #15161b;
-  border-bottom: 1px solid #333;
+  align-items: center;
 }
 
-.logo {
-  font-size: 25px;
-  font-weight: bold;
-  letter-spacing: 5px;
+h1 {
+  margin: 0;
+  letter-spacing: .25em;
+  font-size: 22px;
 }
 
-.subtitle {
-  color: #999;
-  font-size: 11px;
-  letter-spacing: 2px;
+small, .muted {
+  color: #aaa;
 }
 
-.layout {
+main {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: minmax(0,1fr) 340px;
   min-height: calc(100vh - 70px);
 }
 
-.showroom {
+#stage {
+  height: 75vh;
+  min-height: 470px;
+  background: radial-gradient(#41434e,#14151b);
   position: relative;
-  min-height: 600px;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      ellipse at center,
-      #40434d 0%,
-      #202127 55%,
-      #101115 100%
-    );
 }
 
 #viewer {
-  width: 100%;
   height: 100%;
-  min-height: 600px;
+  width: 100%;
   touch-action: pan-y;
 }
 
-.showroom-title {
+.hint {
   position: absolute;
-  top: 25px;
-  left: 25px;
+  bottom: 15px;
+  left: 20px;
+  color: #ccc;
+  font-size: 12px;
   pointer-events: none;
 }
 
-.showroom-title h2 {
-  font-size: 15px;
-  letter-spacing: 3px;
+aside {
+  padding: 22px;
+  background: #1a1b22;
+  border-left: 1px solid #333;
+  overflow: auto;
 }
 
-.showroom-title p {
-  color: #aaa;
+label {
+  display: block;
+  margin: 15px 0 6px;
+  color: #bbb;
   font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
 }
 
-.rotation-controls {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
+select, button {
+  width: 100%;
+  background: #30313a;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 7px;
+  padding: 11px;
+  font: inherit;
 }
 
 button {
-  padding: 12px 15px;
-  border: 1px solid #555;
-  background: #282a32;
-  color: white;
-  border-radius: 7px;
   cursor: pointer;
-}
-
-button:hover {
-  background: #444650;
-}
-
-button.active {
-  background: white;
-  color: black;
-}
-
-.sidebar {
-  background: #191a20;
-  padding: 25px;
-  border-left: 1px solid #333;
-}
-
-.sidebar h2 {
-  margin-top: 0;
-}
-
-.description {
-  font-size: 13px;
-  color: #aaa;
-  line-height: 1.6;
-}
-
-.category {
-  margin-top: 30px;
-}
-
-.category h3 {
-  font-size: 12px;
-  color: #aaa;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   margin-top: 12px;
 }
 
-.skin-button {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 3px solid #777;
-  padding: 0;
+button:hover {
+  background: #454653;
 }
 
-.skin-button.active {
-  outline: 2px solid white;
-  outline-offset: 3px;
+.card {
+  border: 1px solid #3b3c46;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 9px;
+}
+
+.card h3 {
+  margin: 0 0 5px;
+  font-size: 15px;
+}
+
+.card p {
+  margin: 5px 0;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.card button {
+  margin-top: 8px;
 }
 
 .summary {
-  margin-top: 35px;
-  padding-top: 20px;
   border-top: 1px solid #444;
+  margin-top: 24px;
+  padding-top: 12px;
 }
 
-.price {
-  font-size: 26px;
+#total {
+  font-size: 27px;
   font-weight: bold;
 }
 
-.spotify {
-  position: absolute;
-  bottom: 90px;
-  left: 20px;
-  background: #18191fe8;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #444;
-  font-size: 12px;
+a {
+  color: #b9d2ff;
 }
 
-.spotify a {
-  color: #1ed760;
+#status {
+  color: #c8c8c8;
+  font-size: 13px;
 }
 
-footer {
-  padding: 15px;
-  text-align: center;
-  color: #777;
-  font-size: 12px;
-}
-
-@media(max-width: 750px) {
-  .layout {
+@media(max-width:800px) {
+  main {
     grid-template-columns: 1fr;
   }
 
-  .showroom {
-    min-height: 550px;
+  #stage {
+    height: 60vh;
+    min-height: 420px;
   }
 
-  #viewer {
-    min-height: 550px;
-  }
-
-  .sidebar {
-    border-left: none;
+  aside {
+    border-left: 0;
     border-top: 1px solid #333;
-  }
-
-  .rotation-controls {
-    bottom: 20px;
-  }
-
-  .spotify {
-    bottom: 85px;
-  }
-
-  .subtitle {
-    display: none;
   }
 }
 </style>
@@ -226,105 +162,206 @@ footer {
 <body>
 
 <header>
-  <div class="logo">FITTED</div>
-  <div class="subtitle">VIRTUAL FASHION STUDIO</div>
+  <h1>FITTED</h1>
+  <small>VIRTUAL FASHION STUDIO</small>
 </header>
 
-<div class="layout">
+<main>
 
-  <section class="showroom">
+<section id="stage">
+  <div id="viewer"></div>
 
-    <div id="viewer"></div>
+  <div class="hint">
+    Drag to rotate · Pinch or scroll to zoom
+  </div>
+</section>
 
-    <div class="showroom-title">
-      <h2>THE FITTING ROOM</h2>
-      <p>Customize your virtual look</p>
-    </div>
+<aside>
 
-    <div class="spotify">
-      ♫ YOUR SOUNDTRACK
-      <p>Spotify integration coming soon</p>
-      <a href="https://open.spotify.com"
-         target="_blank"
-         rel="noopener noreferrer">
-        Open Spotify ↗
-      </a>
-    </div>
+  <h2>Build your look</h2>
 
-    <div class="rotation-controls">
-      <button id="rotateLeft">↶</button>
-      <button id="resetView">Reset</button>
-      <button id="rotateRight">↷</button>
-    </div>
+  <p class="muted">
+    Browse a sample catalog and assemble an outfit.
+    Prices below are illustrative, not live retail prices.
+  </p>
 
-  </section>
+  <label for="store">Store</label>
+  <select id="store"></select>
 
-  <aside class="sidebar">
+  <label for="category">Category</label>
+  <select id="category"></select>
 
-    <h2>Customize Your Fit</h2>
+  <div id="products"></div>
 
-    <p class="description">
-      Select your skin tone, clothing,
-      and shoes to create your look.
-    </p>
+  <div class="summary">
 
-    <div class="category">
-      <h3>Skin Tone</h3>
-      <div class="options" id="skinOptions"></div>
-    </div>
+    <h2>Your look</h2>
 
-    <div class="category">
-      <h3>Tops</h3>
-      <div class="options" id="topOptions"></div>
-    </div>
+    <div id="chosen"></div>
 
-    <div class="category">
-      <h3>Bottoms</h3>
-      <div class="options" id="bottomOptions"></div>
-    </div>
+    <p id="total">$0.00</p>
 
-    <div class="category">
-      <h3>Shoes</h3>
-      <div class="options" id="shoeOptions"></div>
-    </div>
+    <button id="save">
+      Save look on this device
+    </button>
 
-    <div class="summary">
-      <h3>YOUR LOOK</h3>
-      <p id="outfitDescription"></p>
-      <div class="price" id="totalPrice">$0</div>
-      <p class="description">
-        Demo pricing. Products are placeholders.
-      </p>
-      <button id="saveLook">Save Look</button>
-      <p id="saveMessage"></p>
-    </div>
+    <button id="export">
+      Download look JSON
+    </button>
 
-  </aside>
+    <p id="status"></p>
 
-</div>
+  </div>
 
-<footer>
-  FITTED Prototype — Virtual Fashion Experience
-</footer>
+  <p class="muted">
+    3D clothing previews are illustrative.
+    The sample items are not official retailer listings
+    or accurate garment simulations.
+  </p>
+
+</aside>
+
+</main>
 
 <script type="module">
 
 import * as THREE from
-"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js";
+'https://esm.sh/three@0.160.1';
 
-const container = document.getElementById("viewer");
+import { OrbitControls } from
+'https://esm.sh/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+
+import { GLTFLoader } from
+'https://esm.sh/three@0.160.1/examples/jsm/loaders/GLTFLoader.js';
+
+
+// ===================================
+// PRODUCT CATALOG
+// ===================================
+
+const catalog = [
+
+  {
+    id: 'ae-tee',
+    store: 'American Eagle',
+    category: 'Tops',
+    name: 'Everyday Tee — demo',
+    price: 29.95,
+    color: '#34475e',
+    kind: 'tee'
+  },
+
+  {
+    id: 'ae-jeans',
+    store: 'American Eagle',
+    category: 'Bottoms',
+    name: 'Straight Jeans — demo',
+    price: 59.95,
+    color: '#426083',
+    kind: 'pants'
+  },
+
+  {
+    id: 'rainbow-top',
+    store: 'Rainbow Shops',
+    category: 'Tops',
+    name: 'Ribbed Top — demo',
+    price: 17.99,
+    color: '#a04d70',
+    kind: 'tee'
+  },
+
+  {
+    id: 'rainbow-pants',
+    store: 'Rainbow Shops',
+    category: 'Bottoms',
+    name: 'Wide Leg Pants — demo',
+    price: 24.99,
+    color: '#bca18c',
+    kind: 'pants'
+  },
+
+  {
+    id: 'demo-shoes',
+    store: 'FITTED Demo',
+    category: 'Shoes',
+    name: 'Classic Sneakers — demo',
+    price: 69,
+    color: '#e5e2dc',
+    kind: 'shoes'
+  },
+
+  {
+    id: 'demo-jacket',
+    store: 'FITTED Demo',
+    category: 'Tops',
+    name: 'Bomber Jacket — demo',
+    price: 75,
+    color: '#3f5447',
+    kind: 'jacket'
+  }
+
+];
+
+
+// ===================================
+// OUTFIT STATE
+// ===================================
+
+const slots = [
+  'Tops',
+  'Bottoms',
+  'Shoes'
+];
+
+const saved = (() => {
+  try {
+    return JSON.parse(
+      localStorage.getItem('fitted-v2-look')
+    ) || {};
+  } catch {
+    return {};
+  }
+})();
+
+const chosen = { ...saved };
+
+const store = document.getElementById('store');
+const category = document.getElementById('category');
+
+function option(select, value, text) {
+  const o = document.createElement('option');
+  o.value = value;
+  o.textContent = text;
+  select.append(o);
+}
+
+option(store, 'All', 'All stores');
+
+[...new Set(catalog.map(x => x.store))]
+  .forEach(x => option(store, x, x));
+
+option(category, 'All', 'All categories');
+
+slots.forEach(x => option(category, x, x));
+
+
+// ===================================
+// THREE.JS SHOWROOM
+// ===================================
+
+const viewer = document.getElementById('viewer');
 
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-  35,
+  38,
   1,
   0.1,
   100
 );
 
-camera.position.set(0, 2.35, 7.8);
-camera.lookAt(0, 1.6, 0);
+camera.position.set(0, 1.7, 6);
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
@@ -332,664 +369,475 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setPixelRatio(
-  Math.min(window.devicePixelRatio, 2)
+  Math.min(devicePixelRatio, 2)
 );
 
 renderer.shadowMap.enabled = true;
 
-container.appendChild(renderer.domElement);
+viewer.append(renderer.domElement);
 
+
+// ===================================
 // LIGHTING
+// ===================================
 
-const ambient = new THREE.HemisphereLight(
-  0xdde7ff,
-  0x29232c,
-  2.2
+scene.add(
+  new THREE.HemisphereLight(
+    0xffffff,
+    0x333344,
+    2.3
+  )
 );
 
-scene.add(ambient);
-
-const spotlight = new THREE.SpotLight(
+const light = new THREE.DirectionalLight(
   0xffffff,
-  65,
-  12,
-  Math.PI / 5,
-  0.5
+  2.5
 );
 
-spotlight.position.set(3, 7, 5);
-spotlight.castShadow = true;
+light.position.set(3, 7, 5);
 
-scene.add(spotlight);
+scene.add(light);
 
-const fillLight = new THREE.DirectionalLight(
-  0x93a7ff,
-  2
-);
 
-fillLight.position.set(-4, 3, -2);
-
-scene.add(fillLight);
-
+// ===================================
 // PODIUM
-
-const podiumGeometry = new THREE.CylinderGeometry(
-  1.35,
-  1.45,
-  0.25,
-  80
-);
-
-const podiumMaterial = new THREE.MeshStandardMaterial({
-  color: 0x343640,
-  metalness: 0.55,
-  roughness: 0.32
-});
+// ===================================
 
 const podium = new THREE.Mesh(
-  podiumGeometry,
-  podiumMaterial
+
+  new THREE.CylinderGeometry(
+    1.3,
+    1.4,
+    0.2,
+    64
+  ),
+
+  new THREE.MeshStandardMaterial({
+    color: 0x444650,
+    metalness: 0.35,
+    roughness: 0.5
+  })
+
 );
 
-podium.position.y = -0.13;
-podium.receiveShadow = true;
+podium.position.y = -0.12;
 
 scene.add(podium);
 
-// CHARACTER GROUP
+
+// ===================================
+// CAMERA CONTROLS
+// ===================================
+
+const controls = new OrbitControls(
+  camera,
+  renderer.domElement
+);
+
+controls.target.set(0, 1.6, 0);
+
+controls.enablePan = false;
+
+controls.minDistance = 3;
+controls.maxDistance = 10;
+
+controls.update();
+
+
+// ===================================
+// AVATAR
+// ===================================
 
 const avatar = new THREE.Group();
 
 scene.add(avatar);
 
-function material(color) {
+function mat(c) {
   return new THREE.MeshStandardMaterial({
-    color: color,
-    roughness: 0.78
+    color: c,
+    roughness: 0.8
   });
 }
 
-function createMesh(
-  geometry,
-  meshMaterial,
-  x,
-  y,
-  z
-) {
-  const object = new THREE.Mesh(
-    geometry,
-    meshMaterial
-  );
+function part(geometry, m, x, y, z) {
 
-  object.position.set(x, y, z);
-  object.castShadow = true;
+  const o = new THREE.Mesh(geometry, m);
 
-  avatar.add(object);
+  o.position.set(x, y, z);
 
-  return object;
+  avatar.add(o);
+
+  return o;
 }
 
-function box(w, h, d, mat, x, y, z) {
-  return createMesh(
+function box(w, h, d, m, x, y, z) {
+
+  return part(
     new THREE.BoxGeometry(w, h, d),
-    mat,
+    m,
     x,
     y,
     z
   );
+
 }
 
-function capsule(r, length, mat, x, y, z) {
-  return createMesh(
-    new THREE.CapsuleGeometry(
-      r,
-      length,
-      8,
-      16
-    ),
-    mat,
+function cap(r, l, m, x, y, z) {
+
+  return part(
+    new THREE.CapsuleGeometry(r, l, 8, 12),
+    m,
     x,
     y,
     z
   );
+
 }
 
-// CUSTOMIZATION DATA
 
-const skinTones = [
-  "#f1c7a1",
-  "#c58b63",
-  "#925c40",
-  "#613d2f",
-  "#39251e"
-];
+// ===================================
+// PLACEHOLDER AVATAR
+// ===================================
 
-const tops = [
-  { name: "Black Tee", color: "#202126", price: 28 },
-  { name: "Cream Hoodie", color: "#e4dccc", price: 55 },
-  { name: "Blue Jacket", color: "#476585", price: 78 }
-];
-
-const bottoms = [
-  { name: "Black Pants", color: "#25262a", price: 48 },
-  { name: "Blue Denim", color: "#3c5e82", price: 65 },
-  { name: "Sand Chinos", color: "#b9a284", price: 52 }
-];
-
-const shoes = [
-  { name: "White Sneakers", color: "#e8e8e6", price: 85 },
-  { name: "Black Sneakers", color: "#252529", price: 90 },
-  { name: "Tan Boots", color: "#997754", price: 115 }
-];
-
-let selection = {
-  skin: 2,
-  top: 0,
-  bottom: 1,
-  shoe: 0
-};
-
-// BUILD CHARACTER
-
-function buildAvatar() {
+function drawAvatar() {
 
   avatar.clear();
 
-  const skin = material(
-    skinTones[selection.skin]
+  const skin = mat('#9b654b');
+
+  const top = mat(
+    catalog.find(
+      x => x.id === chosen.Tops
+    )?.color || '#26272b'
   );
 
-  const shirt = material(
-    tops[selection.top].color
+  const bottom = mat(
+    catalog.find(
+      x => x.id === chosen.Bottoms
+    )?.color || '#426083'
   );
 
-  const pants = material(
-    bottoms[selection.bottom].color
+  const shoe = mat(
+    catalog.find(
+      x => x.id === chosen.Shoes
+    )?.color || '#ddd'
   );
 
-  const footwear = material(
-    shoes[selection.shoe].color
-  );
+  // Head
+  cap(0.2, 0.32, skin, 0, 2.85, 0);
 
-  const hair = material("#171519");
+  // Neck
+  cap(0.1, 0.1, skin, 0, 2.54, 0);
 
-  // HEAD
+  // Torso
+  box(0.72, 0.85, 0.36, top, 0, 2.04, 0);
 
-  capsule(
-    0.17,
-    0.36,
-    skin,
-    0,
-    2.86,
-    0
-  );
+  // Arms, legs, shoes
+  for (const s of [-1, 1]) {
 
-  createMesh(
-    new THREE.SphereGeometry(0.23, 24, 16),
-    hair,
-    0,
-    3.12,
-    -0.025
-  );
-
-  // NECK
-
-  capsule(
-    0.12,
-    0.12,
-    skin,
-    0,
-    2.53,
-    0
-  );
-
-  // TORSO
-
-  box(
-    0.77,
-    0.93,
-    0.37,
-    shirt,
-    0,
-    2.02,
-    0
-  );
-
-  // HOODIE
-
-  if (selection.top === 1) {
-
-    capsule(
-      0.32,
-      0.16,
-      shirt,
-      0,
-      2.45,
-      -0.07
-    );
-
-    box(
-      0.3,
-      0.16,
-      0.39,
-      shirt,
-      0,
-      1.69,
-      0.025
-    );
-
-  }
-
-  // JACKET ZIPPER
-
-  if (selection.top === 2) {
-
-    box(
-      0.04,
-      0.82,
-      0.39,
-      material("#c4c7cd"),
-      0,
-      2.02,
-      0.02
-    );
-
-  }
-
-  // ARMS AND LEGS
-
-  for (const side of [-1, 1]) {
-
-    // ARM
-
-    capsule(
-      0.115,
-      0.66,
-      shirt,
-      side * 0.52,
-      2.03,
+    cap(
+      0.12,
+      0.58,
+      top,
+      s * 0.48,
+      2.08,
       0
     );
 
-    // HAND
-
-    capsule(
-      0.085,
+    cap(
+      0.09,
       0.14,
       skin,
-      side * 0.52,
-      1.55,
+      s * 0.48,
+      1.64,
       0
     );
 
-    // LEG
-
-    capsule(
+    cap(
       0.16,
-      0.89,
-      pants,
-      side * 0.22,
-      0.97,
+      0.83,
+      bottom,
+      s * 0.2,
+      0.98,
       0
     );
-
-    // SHOE
 
     box(
-      0.36,
-      0.22,
-      0.64,
-      footwear,
-      side * 0.22,
-      0.20,
-      0.16
+      0.34,
+      0.19,
+      0.54,
+      shoe,
+      s * 0.2,
+      0.2,
+      0.12
     );
 
   }
 
-  // WAIST
-
+  // Waist
   box(
-    0.8,
-    0.2,
-    0.4,
-    pants,
+    0.72,
+    0.24,
+    0.38,
+    bottom,
     0,
-    1.47,
+    1.51,
     0
   );
 
-  updatePrice();
 }
 
-// UI BUTTON GENERATOR
 
-function createOptions(
-  elementId,
-  items,
-  key,
-  isSkin = false
-) {
+// ===================================
+// REALISTIC GLB LOADER
+// ===================================
 
-  const element = document.getElementById(
-    elementId
+let externalModel = null;
+
+new GLTFLoader().load(
+
+  './assets/avatar.glb',
+
+  g => {
+
+    externalModel = g.scene;
+
+    avatar.clear();
+
+    avatar.add(externalModel);
+
+    document.getElementById(
+      'status'
+    ).textContent =
+      'Realistic avatar loaded. Catalog selections are tracked; garment fitting is not implemented yet.';
+
+  },
+
+  undefined,
+
+  () => {
+
+    document.getElementById(
+      'status'
+    ).textContent =
+      'Using placeholder avatar. Add assets/avatar.glb for a real model.';
+
+  }
+
+);
+
+
+// ===================================
+// CATALOG UI
+// ===================================
+
+function refresh() {
+
+  const products = document.getElementById(
+    'products'
   );
 
-  items.forEach((item, index) => {
+  products.replaceChildren();
 
-    const button = document.createElement(
-      "button"
-    );
+  catalog.filter(x =>
 
-    if (isSkin) {
+    (store.value === 'All' ||
+      x.store === store.value) &&
 
-      button.className = "skin-button";
+    (category.value === 'All' ||
+      x.category === category.value)
 
-      button.style.background = item;
+  ).forEach(item => {
 
-      button.setAttribute(
-        "aria-label",
-        "Skin tone " + (index + 1)
-      );
+    const card = document.createElement('div');
 
-    } else {
+    card.className = 'card';
 
-      button.textContent = item.name;
+    const h = document.createElement('h3');
 
-    }
+    h.textContent = item.name;
 
-    if (selection[key] === index) {
-      button.classList.add("active");
-    }
+    const desc = document.createElement('p');
 
-    button.addEventListener("click", () => {
+    desc.textContent =
+      item.store +
+      ' · ' +
+      item.category +
+      ' · $' +
+      item.price.toFixed(2);
 
-      selection[key] = index;
+    const btn = document.createElement('button');
 
-      element.querySelectorAll("button")
-        .forEach(btn => {
-          btn.classList.remove("active");
-        });
+    btn.textContent =
+      chosen[item.category] === item.id
+        ? 'Selected'
+        : 'Add to look';
 
-      button.classList.add("active");
+    btn.onclick = () => {
 
-      buildAvatar();
+      chosen[item.category] = item.id;
 
-    });
+      if (!externalModel) {
+        drawAvatar();
+      }
 
-    element.appendChild(button);
+      refresh();
+
+    };
+
+    card.append(h, desc, btn);
+
+    products.append(card);
 
   });
 
-}
 
-// CREATE CONTROLS
+  // ===================================
+  // OUTFIT SUMMARY
+  // ===================================
 
-createOptions(
-  "skinOptions",
-  skinTones,
-  "skin",
-  true
-);
-
-createOptions(
-  "topOptions",
-  tops,
-  "top"
-);
-
-createOptions(
-  "bottomOptions",
-  bottoms,
-  "bottom"
-);
-
-createOptions(
-  "shoeOptions",
-  shoes,
-  "shoe"
-);
-
-// PRICE CALCULATOR
-
-function updatePrice() {
-
-  const top = tops[selection.top];
-  const bottom = bottoms[selection.bottom];
-  const shoe = shoes[selection.shoe];
-
-  const total =
-    top.price +
-    bottom.price +
-    shoe.price;
-
-  document.getElementById(
-    "totalPrice"
-  ).textContent = "$" + total;
-
-  document.getElementById(
-    "outfitDescription"
-  ).textContent =
-    top.name + " · " +
-    bottom.name + " · " +
-    shoe.name;
-
-}
-
-// ROTATION
-
-let rotation = 0;
-let dragging = false;
-let previousX = 0;
-
-renderer.domElement.addEventListener(
-  "pointerdown",
-  event => {
-
-    dragging = true;
-    previousX = event.clientX;
-
-    renderer.domElement.setPointerCapture(
-      event.pointerId
-    );
-
-  }
-);
-
-renderer.domElement.addEventListener(
-  "pointermove",
-  event => {
-
-    if (!dragging) return;
-
-    const delta = event.clientX - previousX;
-
-    rotation += delta * 0.01;
-
-    avatar.rotation.y = rotation;
-
-    previousX = event.clientX;
-
-  }
-);
-
-renderer.domElement.addEventListener(
-  "pointerup",
-  () => {
-    dragging = false;
-  }
-);
-
-renderer.domElement.addEventListener(
-  "pointercancel",
-  () => {
-    dragging = false;
-  }
-);
-
-// ROTATION BUTTONS
-
-document.getElementById(
-  "rotateLeft"
-).onclick = () => {
-
-  rotation -= Math.PI / 4;
-
-  avatar.rotation.y = rotation;
-
-};
-
-document.getElementById(
-  "rotateRight"
-).onclick = () => {
-
-  rotation += Math.PI / 4;
-
-  avatar.rotation.y = rotation;
-
-};
-
-document.getElementById(
-  "resetView"
-).onclick = () => {
-
-  rotation = 0;
-
-  avatar.rotation.y = 0;
-
-  camera.position.set(0, 2.35, 7.8);
-
-};
-
-// ZOOM
-
-renderer.domElement.addEventListener(
-  "wheel",
-  event => {
-
-    event.preventDefault();
-
-    camera.position.z = THREE.MathUtils.clamp(
-      camera.position.z + event.deltaY * 0.006,
-      5,
-      11
-    );
-
-  },
-  { passive: false }
-);
-
-// SAVE OUTFIT
-
-document.getElementById(
-  "saveLook"
-).onclick = () => {
-
-  try {
-
-    localStorage.setItem(
-      "fitted-look",
-      JSON.stringify(selection)
-    );
-
-    document.getElementById(
-      "saveMessage"
-    ).textContent = "Look saved!";
-
-  } catch (error) {
-
-    document.getElementById(
-      "saveMessage"
-    ).textContent = "Unable to save this look.";
-
-  }
-
-};
-
-// RESTORE SAVED OUTFIT
-
-try {
-
-  const saved = JSON.parse(
-    localStorage.getItem("fitted-look")
+  const list = document.getElementById(
+    'chosen'
   );
 
-  if (saved) {
+  list.replaceChildren();
 
-    const valid =
-      Number.isInteger(saved.skin) &&
-      saved.skin >= 0 &&
-      saved.skin < skinTones.length &&
-      Number.isInteger(saved.top) &&
-      saved.top >= 0 &&
-      saved.top < tops.length &&
-      Number.isInteger(saved.bottom) &&
-      saved.bottom >= 0 &&
-      saved.bottom < bottoms.length &&
-      Number.isInteger(saved.shoe) &&
-      saved.shoe >= 0 &&
-      saved.shoe < shoes.length;
+  let sum = 0;
 
-    if (valid) {
+  for (const slot of slots) {
 
-      selection = saved;
+    const item = catalog.find(
+      x => x.id === chosen[slot]
+    );
 
-      const groups = [
-        ["skinOptions", "skin"],
-        ["topOptions", "top"],
-        ["bottomOptions", "bottom"],
-        ["shoeOptions", "shoe"]
-      ];
+    const p = document.createElement('p');
 
-      groups.forEach(([id, key]) => {
+    p.textContent =
+      slot +
+      ': ' +
+      (item ? item.name : 'None');
 
-        const buttons = document
-          .getElementById(id)
-          .querySelectorAll("button");
+    list.append(p);
 
-        buttons.forEach(button => {
-          button.classList.remove("active");
-        });
-
-        buttons[selection[key]].classList.add(
-          "active"
-        );
-
-      });
-
+    if (item) {
+      sum += item.price;
     }
 
   }
 
-} catch (error) {
-  console.warn("Saved outfit unavailable.");
+  document.getElementById(
+    'total'
+  ).textContent = '$' + sum.toFixed(2);
+
 }
 
-// RESPONSIVE CANVAS
 
-function resizeViewer() {
+// ===================================
+// FILTER EVENTS
+// ===================================
 
-  const width = container.clientWidth;
-  const height = container.clientHeight;
+store.onchange = refresh;
 
-  camera.aspect = width / height;
+category.onchange = refresh;
+
+
+// ===================================
+// SAVE LOOK
+// ===================================
+
+document.getElementById(
+  'save'
+).onclick = () => {
+
+  localStorage.setItem(
+    'fitted-v2-look',
+    JSON.stringify(chosen)
+  );
+
+  document.getElementById(
+    'status'
+  ).textContent = 'Saved on this device.';
+
+};
+
+
+// ===================================
+// EXPORT LOOK JSON
+// ===================================
+
+document.getElementById(
+  'export'
+).onclick = () => {
+
+  const blob = new Blob(
+
+    [
+      JSON.stringify(
+        {
+          version: 1,
+          selection: chosen,
+          items: slots.map(
+            s => catalog.find(
+              x => x.id === chosen[s]
+            )
+          ).filter(Boolean)
+        },
+        null,
+        2
+      )
+    ],
+
+    {
+      type: 'application/json'
+    }
+
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+
+  a.href = url;
+
+  a.download = 'fitted-look.json';
+
+  a.click();
+
+  setTimeout(
+    () => URL.revokeObjectURL(url),
+    1000
+  );
+
+};
+
+
+// ===================================
+// RESPONSIVE VIEWER
+// ===================================
+
+new ResizeObserver(() => {
+
+  const w = viewer.clientWidth;
+  const h = viewer.clientHeight;
+
+  if (!w || !h) return;
+
+  camera.aspect = w / h;
 
   camera.updateProjectionMatrix();
 
-  renderer.setSize(width, height);
+  renderer.setSize(w, h);
 
-}
+}).observe(viewer);
 
-new ResizeObserver(
-  resizeViewer
-).observe(container);
 
+// ===================================
 // INITIALIZE
+// ===================================
 
-buildAvatar();
-resizeViewer();
+drawAvatar();
 
-// RENDER LOOP
+refresh();
 
 renderer.setAnimationLoop(() => {
 
